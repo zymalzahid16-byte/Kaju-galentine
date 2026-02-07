@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Kaju 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      color: #4a0033;
+      overflow: hidden;
+      user-select: none;
+      position: relative;
+    }
+
+    /* Big initial in background */
+    body::before {
+      content: "K";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 250px;
+      font-weight: 900;
+      color: rgba(214, 51, 108, 0.1);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+      background: rgba(255 255 255 / 0.85);
+      padding: 35px 30px;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      width: 320px;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: #d6336c;
+    }
+
+    h2 {
+      font-weight: 300;
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.4;
+      color: #7d2a4d;
+    }
+
+    p.message {
+      font-weight: 400;
+      font-size: 16px;
+      margin: 15px 0 0 0;
+      color: #8b3a5b;
+      min-height: 60px;
+      transition: opacity 0.6s ease;
+    }
+
+    button {
+      padding: 12px 28px;
+      margin: 0 10px;
+      border-radius: 30px;
+      border: none;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(214, 51, 108, 0.35);
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      user-select: none;
+      color: white;
+    }
+
+    #yesBtn {
+      background: #d6336c;
+    }
+    #yesBtn:hover {
+      background: #f95e93;
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: #a35373;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+    #noBtn:hover {
+      background: #c3729c;
+    }
+
+    .heart {
+      position: absolute;
+      color: #d6336c;
+      font-size: 18px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-20vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background music (optional) -->
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="container" id="valentineBox">
+    <h1>Hey Kaju 💕</h1>
+    <h2>Would you make me the happiest person<br>by being my Valentine? 💖</h2>
+    <button id="yesBtn">Yes, of course! 💌</button>
+    <button id="noBtn">No, maybe later 🙈</button>
+    <p class="message" id="message"></p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const box = document.getElementById('valentineBox');
+    const message = document.getElementById('message');
+    const music = document.getElementById('music');
+
+    noBtn.addEventListener('mouseenter', () => {
+      const x = Math.random() * 130 - 65;
+      const y = Math.random() * 100 - 50;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    noBtn.addEventListener('mouseleave', () => {
+      noBtn.style.transform = 'translate(0,0)';
+    });
+
+    const messages = [
+      "My heart is dancing right now 🥹✨",
+      "Thank you for making my day so special, Kaju! 💕",
+      "Happy Valentine’s Day! 🌹 Can't wait to make more memories with you."
+    ];
+
+    let msgIndex = 0;
+    let msgInterval;
+
+    yesBtn.addEventListener('click', () => {
+      music.play();
+
+      // Remove buttons & question
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+      message.style.opacity = 0;
+
+      // Change heading
+      box.querySelector('h1').textContent = "Yesss! 💖";
+      box.querySelector('h2').textContent = "";
+
+      // Show messages one by one
+      function showMessage() {
+        message.textContent = messages[msgIndex];
+        message.style.opacity = 1;
+        msgIndex++;
+        if (msgIndex >= messages.length) {
+          clearInterval(msgInterval);
+        }
+      }
+
+      showMessage();
+      msgInterval = setInterval(() => {
+        message.style.opacity = 0;
+        setTimeout(showMessage, 600);
+      }, 3000);
+    });
+
+    // Create floating hearts
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      heart.style.fontSize = 14 + Math.random() * 10 + 'px';
+      document.body.appendChild(heart);
+    }
+  </script>
+
+</body>
+</html>
