@@ -2,228 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For Kaju 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Kaju 💗</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+      background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       font-family: 'Poppins', sans-serif;
-      color: #4a0033;
       overflow: hidden;
-      user-select: none;
-      position: relative;
     }
 
-    /* Big initial in background */
-    body::before {
-      content: "K";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 250px;
-      font-weight: 900;
-      color: rgba(214, 51, 108, 0.1);
-      user-select: none;
-      pointer-events: none;
-      z-index: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .container {
-      background: rgba(255 255 255 / 0.85);
-      padding: 35px 30px;
+    .card {
+      background: white;
+      width: 90%;
+      max-width: 360px;
       border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-      width: 320px;
+      padding: 25px;
       text-align: center;
-      animation: fadeIn 1.2s ease forwards;
-      position: relative;
-      z-index: 1;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease;
     }
 
     h1 {
-      font-weight: 600;
+      font-family: 'Pacifico', cursive;
+      color: #ff5f9e;
       font-size: 26px;
-      margin-bottom: 8px;
-      color: #d6336c;
+      margin-bottom: 10px;
     }
 
-    h2 {
-      font-weight: 300;
-      font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.4;
-      color: #7d2a4d;
-    }
-
-    p.message {
-      font-weight: 400;
-      font-size: 16px;
-      margin: 15px 0 0 0;
-      color: #8b3a5b;
-      min-height: 60px;
-      transition: opacity 0.6s ease;
+    p {
+      font-size: 15px;
+      color: #444;
     }
 
     button {
-      padding: 12px 28px;
-      margin: 0 10px;
-      border-radius: 30px;
+      margin-top: 20px;
+      padding: 10px 22px;
       border: none;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 6px 10px rgba(214, 51, 108, 0.35);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-      user-select: none;
+      border-radius: 30px;
+      background: #ff5f9e;
       color: white;
+      font-size: 15px;
+      cursor: pointer;
     }
 
-    #yesBtn {
-      background: #d6336c;
-    }
-    #yesBtn:hover {
-      background: #f95e93;
-      transform: scale(1.1);
+    button:hover {
+      transform: scale(1.05);
     }
 
-    #noBtn {
-      background: #a35373;
+    /* Envelope */
+    .envelope {
+      width: 200px;
+      height: 120px;
+      background: #ff8fb1;
       position: relative;
-      transition: background-color 0.3s ease;
-    }
-    #noBtn:hover {
-      background: #c3729c;
+      margin: 20px auto;
+      border-radius: 10px;
+      cursor: pointer;
     }
 
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 60px solid #ff5f9e;
+      transition: transform 0.8s;
+      transform-origin: top;
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+
+    /* Hearts */
     .heart {
       position: absolute;
-      color: #d6336c;
+      color: #ff5f9e;
       font-size: 18px;
-      animation: floatUp linear infinite;
-      opacity: 0.8;
-      user-select: none;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-20vh) scale(1.4);
-        opacity: 0;
-      }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    #noBtn {
+      background: #ccc;
+      color: #333;
+      position: relative;
     }
   </style>
 </head>
 <body>
 
-  <!-- Background music (optional) -->
-  <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg" />
-  </audio>
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946c1a1c4e.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="container" id="valentineBox">
-    <h1>Hey Kaju 💕</h1>
-    <h2>Would you make me the happiest person<br>by being my Valentine? 💖</h2>
-    <button id="yesBtn">Yes, of course! 💌</button>
-    <button id="noBtn">No, maybe later 🙈</button>
-    <p class="message" id="message"></p>
-  </div>
+<div class="card" id="card">
+  <h1>Hey Kaju 💌</h1>
+  <p>I made something just for you.</p>
+  <button onclick="nextStep()">Next</button>
+</div>
 
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const box = document.getElementById('valentineBox');
-    const message = document.getElementById('message');
-    const music = document.getElementById('music');
+<script>
+  let step = 0;
+  const card = document.getElementById("card");
+  const music = document.getElementById("bgm");
 
-    noBtn.addEventListener('mouseenter', () => {
-      const x = Math.random() * 130 - 65;
-      const y = Math.random() * 100 - 50;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+  function nextStep() {
+    step++;
+    music.play();
 
-    noBtn.addEventListener('mouseleave', () => {
-      noBtn.style.transform = 'translate(0,0)';
-    });
-
-    const messages = [
-      "My heart is dancing right now 🥹✨",
-      "Thank you for making my day so special, Kaju! 💕",
-      "Happy Valentine’s Day! 🌹 Can't wait to make more memories with you."
-    ];
-
-    let msgIndex = 0;
-    let msgInterval;
-
-    yesBtn.addEventListener('click', () => {
-      music.play();
-
-      // Remove buttons & question
-      yesBtn.style.display = 'none';
-      noBtn.style.display = 'none';
-      message.style.opacity = 0;
-
-      // Change heading
-      box.querySelector('h1').textContent = "Yesss! 💖";
-      box.querySelector('h2').textContent = "";
-
-      // Show messages one by one
-      function showMessage() {
-        message.textContent = messages[msgIndex];
-        message.style.opacity = 1;
-        msgIndex++;
-        if (msgIndex >= messages.length) {
-          clearInterval(msgInterval);
-        }
-      }
-
-      showMessage();
-      msgInterval = setInterval(() => {
-        message.style.opacity = 0;
-        setTimeout(showMessage, 600);
-      }, 3000);
-    });
-
-    // Create floating hearts
-    for (let i = 0; i < 20; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = '❤';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
-      heart.style.fontSize = 14 + Math.random() * 10 + 'px';
-      document.body.appendChild(heart);
+    if (step === 1) {
+      card.innerHTML = `
+        <h1>Because…</h1>
+        <p>You’re not just Rija.</p>
+        <p>You’re <b>my Kaju</b> 🥹💗</p>
+        <button onclick="nextStep()">Next</button>
+      `;
     }
-  </script>
+
+    else if (step === 2) {
+      card.innerHTML = `
+        <h1>Tap the envelope ✉️</h1>
+        <div class="envelope" onclick="openEnvelope(this)">
+          <div class="flap"></div>
+        </div>
+      `;
+    }
+
+    else if (step === 3) {
+      card.innerHTML = `
+        <h1>One question…</h1>
+        <p>Will you be my <b>Galentine</b>? 💖</p>
+        <div class="buttons">
+          <button onclick="yes()">YES 💕</button>
+          <button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+        </div>
+      `;
+    }
+  }
+
+  function openEnvelope(el) {
+    el.classList.add("open");
+    setTimeout(nextStep, 900);
+  }
+
+  function yes() {
+    card.innerHTML = `
+      <h1>YAYYYY 🥰</h1>
+      <p>You just made my Galentine so much brighter, Kaju.</p>
+      <p>Thank you for being <b>you</b> 🌷</p>
+      <p>This page will always be yours 💗</p>
+    `;
+    hearts();
+  }
+
+  function moveNo() {
+    const noBtn = document.getElementById("noBtn");
+    noBtn.style.transform = `translate(${Math.random()*100 - 50}px, ${Math.random()*100 - 50}px)`;
+  }
+
+  function hearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }, 300);
+  }
+</script>
 
 </body>
 </html>
