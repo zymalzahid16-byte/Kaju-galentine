@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>For Kaju 💗</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -28,14 +27,16 @@
       padding: 25px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      animation: fadeIn 1s ease;
+      animation: fadeIn 0.8s ease;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       color: #ff5f9e;
       font-size: 26px;
-      margin-bottom: 10px;
+      cursor: pointer;
     }
 
     p {
@@ -44,7 +45,7 @@
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 18px;
       padding: 10px 22px;
       border: none;
       border-radius: 30px;
@@ -54,42 +55,77 @@
       cursor: pointer;
     }
 
-    button:hover {
-      transform: scale(1.05);
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
     }
 
-    /* Envelope */
-    .envelope {
-      width: 200px;
-      height: 120px;
-      background: #ff8fb1;
+    #noBtn {
+      background: #ccc;
+      color: #333;
       position: relative;
-      margin: 20px auto;
-      border-radius: 10px;
+    }
+
+    /* 💌 Envelope */
+    .envelope-wrapper {
+      margin-top: 15px;
       cursor: pointer;
+    }
+
+    .envelope {
+      position: relative;
+      width: 220px;
+      height: 140px;
+      background: #ff8fb1;
+      margin: auto;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     .flap {
       position: absolute;
       top: 0;
-      left: 0;
       width: 0;
       height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 60px solid #ff5f9e;
-      transition: transform 0.8s;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-bottom: 70px solid #ff5f9e;
       transform-origin: top;
+      transition: transform 0.8s ease;
+      z-index: 3;
+    }
+
+    .letter {
+      position: absolute;
+      width: 200px;
+      height: 110px;
+      background: white;
+      top: 20px;
+      left: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #ff5f9e;
+      transform: translateY(40px);
+      transition: transform 0.8s ease;
+      z-index: 2;
     }
 
     .open .flap {
       transform: rotateX(180deg);
     }
 
+    .open .letter {
+      transform: translateY(-10px);
+    }
+
     /* Hearts */
     .heart {
       position: absolute;
-      color: #ff5f9e;
       font-size: 18px;
       animation: float 4s linear infinite;
     }
@@ -100,21 +136,30 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
+      from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
+    .secret {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #888;
+      animation: fadeIn 1s ease;
     }
 
-    #noBtn {
-      background: #ccc;
-      color: #333;
-      position: relative;
+    .secret-unlock {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ff5f9e;
+      cursor: pointer;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .ultimate-secret {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #444;
+      animation: fadeIn 1s ease;
     }
   </style>
 </head>
@@ -125,23 +170,34 @@
 </audio>
 
 <div class="card" id="card">
-  <h1>Hey Kaju 💌</h1>
+  <h1 id="title" onclick="secretTap()">Hey Kaju 💌</h1>
   <p>I made something just for you.</p>
   <button onclick="nextStep()">Next</button>
 </div>
 
 <script>
   let step = 0;
+  let tapCount = 0;
+
   const card = document.getElementById("card");
   const music = document.getElementById("bgm");
 
+  const secretMessages = [
+    "You’re my favourite notification 💕",
+    "You’re my favourite person 🌷",
+    "My day feels incomplete without you 💗",
+    "Kaju > everything else 😌",
+    "You make ordinary days special ✨",
+    "I smile more because of you 🥹"
+  ];
+
   function nextStep() {
     step++;
-    music.play();
+    music.play().catch(() => {});
 
     if (step === 1) {
       card.innerHTML = `
-        <h1>Because…</h1>
+        <h1 id="title" onclick="secretTap()">Because…</h1>
         <p>You’re not just Rija.</p>
         <p>You’re <b>my Kaju</b> 🥹💗</p>
         <button onclick="nextStep()">Next</button>
@@ -150,16 +206,19 @@
 
     else if (step === 2) {
       card.innerHTML = `
-        <h1>Tap the envelope ✉️</h1>
-        <div class="envelope" onclick="openEnvelope(this)">
-          <div class="flap"></div>
+        <h1 id="title" onclick="secretTap()">Tap the envelope ✉️</h1>
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+          <div class="envelope" id="env">
+            <div class="flap"></div>
+            <div class="letter">Open me 💗</div>
+          </div>
         </div>
       `;
     }
 
     else if (step === 3) {
       card.innerHTML = `
-        <h1>One question…</h1>
+        <h1 id="title" onclick="secretTap()">One question…</h1>
         <p>Will you be my <b>Galentine</b>? 💖</p>
         <div class="buttons">
           <button onclick="yes()">YES 💕</button>
@@ -169,24 +228,48 @@
     }
   }
 
-  function openEnvelope(el) {
-    el.classList.add("open");
+  function openEnvelope() {
+    document.getElementById("env").classList.add("open");
     setTimeout(nextStep, 900);
   }
 
   function yes() {
+    music.pause();
+    music.currentTime = 0;
+    music.play().catch(() => {});
+
     card.innerHTML = `
-      <h1>YAYYYY 🥰</h1>
-      <p>You just made my Galentine so much brighter, Kaju.</p>
+      <h1 id="title" onclick="secretTap()">YAYYYY 🥰</h1>
+      <p>You just made my Galentine so much brighter, Kaju 💗</p>
       <p>Thank you for being <b>you</b> 🌷</p>
-      <p>This page will always be yours 💗</p>
+      <p>This page will always be yours 💕</p>
+
+      <p class="secret-unlock" onclick="unlockSecret()">
+        ✨ Tap here… ✨
+      </p>
     `;
     hearts();
   }
 
+  function unlockSecret() {
+    const existing = document.querySelector(".ultimate-secret");
+    if (existing) return;
+
+    const secret = document.createElement("div");
+    secret.className = "ultimate-secret";
+    secret.innerHTML = `
+      💌  
+      Honestly…  
+      I didn’t just make this page for Galentine.  
+      I made it because <b>you’re special to me</b> 💗
+    `;
+    card.appendChild(secret);
+  }
+
   function moveNo() {
-    const noBtn = document.getElementById("noBtn");
-    noBtn.style.transform = `translate(${Math.random()*100 - 50}px, ${Math.random()*100 - 50}px)`;
+    const btn = document.getElementById("noBtn");
+    btn.style.transform =
+      `translate(${Math.random()*100 - 50}px, ${Math.random()*100 - 50}px)`;
   }
 
   function hearts() {
@@ -198,6 +281,23 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 4000);
     }, 300);
+  }
+
+  function secretTap() {
+    tapCount++;
+
+    if (tapCount === 3) {
+      const secret = document.createElement("div");
+      secret.className = "secret";
+
+      const randomMsg =
+        secretMessages[Math.floor(Math.random() * secretMessages.length)];
+
+      secret.innerHTML = randomMsg;
+      card.appendChild(secret);
+
+      tapCount = 0;
+    }
   }
 </script>
 
