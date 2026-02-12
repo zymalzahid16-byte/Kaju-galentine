@@ -68,7 +68,7 @@
       position: relative;
     }
 
-    /* 💌 Envelope */
+    /* Envelope */
     .envelope-wrapper {
       margin-top: 15px;
       cursor: pointer;
@@ -161,22 +161,6 @@
       color: #444;
       animation: fadeIn 1s ease;
     }
-
-    /* ✨ Sparkle effect */
-    .sparkle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(circle, #fff 0%, #ff5f9e 80%);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: sparkleAnim 1s linear forwards;
-    }
-
-    @keyframes sparkleAnim {
-      0% { transform: scale(0) translateY(0); opacity: 1; }
-      100% { transform: scale(1.5) translateY(-50px); opacity: 0; }
-    }
   </style>
 </head>
 <body>
@@ -219,7 +203,6 @@
         <button onclick="nextStep()">Next</button>
       `;
     }
-
     else if (step === 2) {
       card.innerHTML = `
         <h1 id="title" onclick="secretTap()">Tap the envelope ✉️</h1>
@@ -231,7 +214,6 @@
         </div>
       `;
     }
-
     else if (step === 3) {
       card.innerHTML = `
         <h1 id="title" onclick="secretTap()">One question…</h1>
@@ -265,7 +247,6 @@
       </p>
     `;
     hearts();
-    sparkleEffect(); // ✨ trigger sparkles
   }
 
   function unlockSecret() {
@@ -274,9 +255,9 @@
 
     const secret = document.createElement("div");
     secret.className = "ultimate-secret";
-
-    const randomMsg = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-    secret.innerHTML = `💌 ${randomMsg}`;
+    const randomMsg =
+      secretMessages[Math.floor(Math.random() * secretMessages.length)];
+    secret.innerHTML = randomMsg;
     card.appendChild(secret);
   }
 
@@ -303,23 +284,13 @@
       const secret = document.createElement("div");
       secret.className = "secret";
 
-      const randomMsg = secretMessages[Math.floor(Math.random() * secretMessages.length)];
+      const randomMsg =
+        secretMessages[Math.floor(Math.random() * secretMessages.length)];
+
       secret.innerHTML = randomMsg;
       card.appendChild(secret);
 
       tapCount = 0;
-    }
-  }
-
-  // ✨ Sparkle function
-  function sparkleEffect() {
-    for(let i=0;i<20;i++){
-      const sparkle = document.createElement("div");
-      sparkle.className = "sparkle";
-      sparkle.style.left = (Math.random()*100) + "vw";
-      sparkle.style.top = (Math.random()*100) + "vh";
-      document.body.appendChild(sparkle);
-      setTimeout(()=> sparkle.remove(), 1000);
     }
   }
 </script>
